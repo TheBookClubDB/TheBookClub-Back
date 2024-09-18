@@ -32,7 +32,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'com.h2database:h2'
-	testImplementation 'com.h2database:h2:2.2.200'
+	testImplementation 'com.h2database:h2:2.1.214'
 	testImplementation 'org.postgresql:postgresql:42.7.2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
