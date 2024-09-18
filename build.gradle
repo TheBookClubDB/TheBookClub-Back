@@ -53,6 +53,6 @@ sonar {
 		property "sonar.projectKey", "TheBookClubDB_TheBookClub-Back"
 		property "sonar.organization", "thebookclubdb"
 		property "sonar.host.url", "https://sonarcloud.io"
-		property "sonar.java.binaries", "build/classes/java/com/db/thebookclub/"
+		property "sonar.java.binaries", "**/build/**"
 	}
 }
