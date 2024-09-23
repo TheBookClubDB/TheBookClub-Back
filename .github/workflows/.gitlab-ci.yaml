@@ -83,7 +83,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
+          key: ${{ runner.os }}-sonar-${{ github.sha }}
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache Gradle packages
         uses: actions/cache@v1
@@ -91,6 +91,8 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Build the project
+        run: ./gradlew build
       - name: List class files
         run: find build/classes -name "*.class"
       - name: Print build directory
