@@ -10,6 +10,6 @@ public class ErrorHandler {
     
     @ExceptionHandler(AutorJaCadastradoException.class)
     public ResponseEntity<String> handleErrorAutorJaCadastradoException(AutorJaCadastradoException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 }
