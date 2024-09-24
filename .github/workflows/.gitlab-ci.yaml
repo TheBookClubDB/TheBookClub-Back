@@ -106,9 +106,11 @@ jobs:
       - name: Check SonarCloud Quality Gate
         run: |
           PROJECT_KEY="${{ secrets.SONAR_PROJECT_KEY }}"
-          BRANCH_NAME="${GITHUB_REF##*/}" 
+          BRANCH_TESTE= "${{ github.ref }}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}" 
           STATUS=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:" "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&branch=${BRANCH_NAME}")
           echo $BRANCH_NAME  
+          echo $BRANCH_TESTE
             
           STATUS_VALUE=$(echo "$STATUS" | jq -r '.projectStatus.status')
           if [[ "$STATUS_VALUE" != "OK" ]]; then
