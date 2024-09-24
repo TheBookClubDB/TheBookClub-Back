@@ -54,5 +54,6 @@ sonar {
 		property "sonar.organization", "thebookclubdb"
 		property "sonar.host.url", "https://sonarcloud.io"
 		property "sonar.java.binaries", "${project.buildDir}/classes"
+		property "sonar.jacoco.reportPaths", "$project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
