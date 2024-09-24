@@ -103,6 +103,17 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
         run: ./gradlew sonar --info
-
+      - name: Check SonarCloud Quality Gate
+        run: |
+          PROJECT_KEY="TheBookClubDB_TheBookClub-Back"
+          BRANCH_NAME="${{ github.ref }}"
+          STATUS=$(curl -s -u "${SONAR_TOKEN}:" "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${SONAR_PROJECT_KEY}&branch=${BRANCH_NAME}")
+           
+          if [[ $(echo "$STATUS" | jq -r '.projectStatus.status') != "OK" ]]; then
+            echo "Analyses SonarCloud Error"
+            exit 1
+          else
+            echo "Analyses SonarCloud Sucess"
+          fi
 
 
