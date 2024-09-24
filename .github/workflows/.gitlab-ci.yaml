@@ -101,4 +101,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_TOKEN: ${{ secrets.SONAR_PROJECT_TOKEN }}
         run: ./gradlew sonar --info
+      - name: Check coverage
+        run: |
+          COVERAGE=$(curl -s -u SONAR_TOKEN: "https://sonarcloud.io/api/measures/component?component=SONAR_PROJECT_TOKEN&metricKeys=coverage" | jq -r '.component.measures[0].value')
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "Coverage is below 80%. Current coverage: $COVERAGE%"
+            exit 1
+          fi
+
+
+
