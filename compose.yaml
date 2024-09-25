@@ -4,4 +4,23 @@ services:
     env_file:
       '.env'
     ports:
-      - '5432:5432'
+      - '5437:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    env_file:
+      '.env'
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
+volumes:
+  postgres_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
