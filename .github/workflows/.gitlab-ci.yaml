@@ -60,8 +60,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Build and run Checkstyle
-        run: ./gradlew build checkstyleMain
+      - name: Run Checkstyle Main
+        run: ./gradlew checkstyleMain
+      - name: Run Checkstyle Test
+        run: ./gradlew checkstyleTest
 
   test:
     name: Test

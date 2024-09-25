@@ -63,7 +63,7 @@ gradlePlugin {
 
 checkstyle {
 	toolVersion = '10.18.1'
-	ignoreFailures = true
+	ignoreFailures = false
 	configFile rootProject.file('checkstyle.xml')
 
 }
@@ -151,7 +151,7 @@ tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
 	violationRules {
 		rule {
 			limit {
-				minimum = 0.00
+				minimum = 0.70
 			}
 		}
 	}
