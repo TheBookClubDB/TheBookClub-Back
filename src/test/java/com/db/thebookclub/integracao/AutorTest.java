@@ -1,4 +1,4 @@
-package com.db.thebookclub.integraçao;
+package com.db.thebookclub.integracao;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
