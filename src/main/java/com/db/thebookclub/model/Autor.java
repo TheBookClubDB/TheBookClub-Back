@@ -35,7 +35,7 @@ public class Autor {
     @Column(nullable = false)
     private LocalDate nascimento;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
