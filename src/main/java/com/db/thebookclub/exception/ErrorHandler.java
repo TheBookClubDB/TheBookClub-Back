@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 public class ErrorHandler {
     
     @ExceptionHandler(AutorJaCadastradoException.class)
-    public ResponseEntity<String> handleErrorAutorJaCadastradoException(AutorJaCadastradoException e){
+    public ResponseEntity<String> handleErrorAutorJaCadastradoException(AutorJaCadastradoException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 }

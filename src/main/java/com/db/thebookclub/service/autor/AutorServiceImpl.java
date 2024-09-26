@@ -17,17 +17,17 @@ public class AutorServiceImpl implements AutorService {
     AutorRepository repository;
 
     @Override
-    public AutorResponse registrar(AutorRequest request){
+    public AutorResponse registrar(AutorRequest request) {
         verificaSeJaExisteAutorComEsseCpf(request.cpf());
         Autor autor = AutorMapper.INSTANCE.requestToAutor(request);
         repository.save(autor);
         return AutorMapper.INSTANCE.autorToResponse(autor);
     }
 
-    private void verificaSeJaExisteAutorComEsseCpf(String cpf){
+    private void verificaSeJaExisteAutorComEsseCpf(String cpf) {
         Optional<Autor> autor = repository.findByCpf(cpf);
         if (autor.isPresent()) {
-           throw new AutorJaCadastradoException("Já existe um autor cadastrado com esse CPF");
+             throw new AutorJaCadastradoException("Já existe um autor cadastrado com esse CPF");
         }
     }
 }
