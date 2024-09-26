@@ -2,6 +2,10 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.3'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id "org.sonarqube" version "5.1.0.4882"
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+	id 'jacoco'
+	id 'checkstyle'
 }
 
 group = 'com.db'
@@ -23,6 +27,31 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
+checkstyle {
+	toolVersion = '10.18.1'
+	ignoreFailures = false
+	configFile rootProject.file('checkstyle.xml')
+
+}
+
+tasks.withType(Checkstyle) {
+	reports {
+		xml.required = false
+		html.required = true
+		resources.text.fromFile("build/reports/checkstyle/checkstyle.html")
+	}
+}
+
+configurations.checkstyle {
+	resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+		select("com.google.guava:guava:0")
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -30,6 +59,9 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'com.h2database:h2:2.1.214'
+	testImplementation 'org.postgresql:postgresql:42.7.2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -39,8 +71,59 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 	runtimeOnly 'com.h2database:h2'
+	implementation 'org.slf4j:slf4j-api:2.0.16'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "TheBookClubDB_TheBookClub-Back"
+		property "sonar.organization", "thebookclubdb"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.java.binaries", "${project.buildDir}/classes"
+		property "sonar.jacoco.reportPath", "build/reports/jacoco/test/jacocoTestReport.xml"
+		property "sonar.checkstyle.reportPath", "build/reports/checkstyle/main.html"
+	}
+}
+
+tasks.named('asciidoctor') {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+jacoco {
+	toolVersion = '0.8.8'
+}
+
+tasks.named('test') {
+	finalizedBy tasks.named('jacocoTestReport')
+}
+
+tasks.named('jacocoTestReport', JacocoReport) {
+	dependsOn tasks.named('test')
+
+	reports {
+		xml.required.set(true)
+		html.required.set(true)
+	}
+
+	sourceSets(sourceSets.main)
+	executionData.setFrom(fileTree(dir: layout.buildDirectory.asFile, includes: ['jacoco/test.exec']))
+}
+
+tasks.named('check') {
+	dependsOn tasks.named('jacocoTestCoverageVerification')
+}
+
+tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.00
+			}
+		}
+	}
 }
