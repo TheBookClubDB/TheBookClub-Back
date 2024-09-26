@@ -27,7 +27,7 @@ public class AutorServiceImpl implements AutorService {
     private void verificaSeJaExisteAutorComEsseCpf(String cpf) {
         Optional<Autor> autor = repository.findByCpf(cpf);
         if (autor.isPresent()) {
-             throw new AutorJaCadastradoException("Já existe um autor cadastrado com esse CPF");
+            throw new AutorJaCadastradoException("Já existe um autor cadastrado com esse CPF");
         }
     }
 }

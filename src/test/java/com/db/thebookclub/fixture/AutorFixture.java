@@ -1,7 +1,6 @@
 package com.db.thebookclub.fixture;
 
 import java.time.LocalDate;
-
 import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.enums.Genero;
 

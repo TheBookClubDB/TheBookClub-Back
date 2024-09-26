@@ -1,4 +1,4 @@
-package com.db.thebookclub.integração;
+package com.db.thebookclub.integraçao;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,9 @@ import com.db.thebookclub.fixture.AutorFixture;
 import com.db.thebookclub.fixture.SqlProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @AutoConfigureMockMvc
 @SpringBootTest
