@@ -85,7 +85,9 @@ Antes de começar, você precisará ter instalado:
   - Para gerar o relatório, execute:
 
     ```bash
-    ./gradlew jacocoTestReport
+    ./gradlew clean test jacocoTestReport   // para limpar o relatório, testar e gerar novos relatórios
+    ./gradlew jacocoTestReport    // para gerar relatório
+    ./gradlw test jacocoTestReport // para testar e gerar relatório
 
   - **Acessando o Relatório**: O relatório HTML será gerado em **build/reports/jacoco/test/html/index.html**. Abra este arquivo em um navegador para visualizar o relatório.
 
@@ -95,7 +97,8 @@ Antes de começar, você precisará ter instalado:
   - Executando Checkstyle: Para rodar o Checkstyle, utilize o seguinte comando:
   
     ```bash
-    ./gradlew checkstyle
+    ./gradlew checkstyleMain
+    ./gradlew checkstyleTest
 
   - Os resultados podem ser encontrados em **build/reports/checkstyle/checkstyle.html**. Abra este arquivo em um navegador para visualizar o relatório.
   - Os resultados também pode ser encotrados no próprio terminal de execução.
