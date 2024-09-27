@@ -131,9 +131,9 @@ jobs:
           
           if [[ "$GITHUB_REF" == refs/pull/* ]]; then
           
-            PULL_REQUEST_ID="${GITHUB_REF##*/}"
+            PULL_REQUEST_ID=$(jq -r .pull_request.number < "$GITHUB_EVENT_PATH")
           
-            echo ${GITHUB_REF##*/}
+            echo "$PULL_REQUEST_ID"
   
             STATUS=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:"  "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&pullRequest=${PULL_REQUEST_ID}")
           else
