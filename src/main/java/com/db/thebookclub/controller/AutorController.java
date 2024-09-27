@@ -19,7 +19,7 @@ public class AutorController {
     @Autowired
     AutorService service;
 
-    @PostMapping("registro")
+    @PostMapping("/registro")
     public ResponseEntity<AutorResponse> registrar(@RequestBody @Valid AutorRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(request));
     }
