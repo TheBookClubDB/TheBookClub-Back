@@ -128,7 +128,25 @@ jobs:
         run: |
           PROJECT_KEY="${{ secrets.SONAR_PROJECT_KEY }}"
           BRANCH_NAME="${GITHUB_REF#refs/heads/}" 
-          STATUS=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:" "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&branch=${BRANCH_NAME}")
+          
+          if [[ "$GITHUB_REF" == refs/pull/* ]]; then
+          
+            PULL_REQUEST_ID="${GITHUB_REF##*/}"
+          
+            echo ${GITHUB_REF##*/}
+  
+            STATUS=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:"  "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&pullRequest=${PULL_REQUEST_ID}")
+          else
+  
+            STATUS=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:"  "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&branch=${BRANCH_NAME}")
+          fi
+          
+          STATUS_VALUE=$(echo "$STATUS" | jq -r '.projectStatus.status')
+  
+          if [[ -z "$STATUS_VALUE" ]]; then
+            echo "Status is null or undefined. Check if the analysis is configured for PRs."
+          exit 1
+          fi
           
           STATUS_VALUE=$(echo "$STATUS" | jq -r '.projectStatus.status')
           if [[ "$STATUS_VALUE" != "OK" ]]; then
