@@ -48,5 +48,4 @@ public class Report {
             driver = null;
         }
     }
-
 }

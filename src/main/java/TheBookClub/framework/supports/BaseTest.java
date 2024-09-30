@@ -26,5 +26,4 @@ public class BaseTest extends DriverFactory {
         Report.closeReport();
         DriverManager.quit();
     }
-
 }
