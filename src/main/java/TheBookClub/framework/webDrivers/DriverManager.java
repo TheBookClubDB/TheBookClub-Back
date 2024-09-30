@@ -19,5 +19,4 @@ public class DriverManager {
             getDriver().quit();
         }
     }
-
 }
