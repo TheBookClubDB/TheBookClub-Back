@@ -1,5 +1,6 @@
 package com.db.thebookclub.service.autor;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class AutorServiceImpl implements AutorService {
     @Autowired
     AutorRepository repository;
 
+    private final AutorMapper autorMaper = AutorMapper.INSTANCE;
+
     @Override
     public AutorResponse registrar(AutorRequest request) {
         verificaSeJaExisteAutorComEsseCpf(request.cpf());
@@ -29,5 +32,10 @@ public class AutorServiceImpl implements AutorService {
         if (autor.isPresent()) {
             throw new AutorJaCadastradoException("Já existe um autor cadastrado com esse CPF");
         }
+    }
+
+    public List<AutorResponse> lista(){
+        return autorMaper.lista(repository.findAll());
+
     }
 }
