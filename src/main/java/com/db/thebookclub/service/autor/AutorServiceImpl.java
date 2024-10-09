@@ -36,6 +36,11 @@ public class AutorServiceImpl implements AutorService {
 
     public List<AutorResponse> lista(){
         return autorMaper.lista(repository.findAll());
-
     }
+
+    @Override
+    public AutorResponse bucarPorNome(String nome) {
+        return autorMaper.autorToResponse(repository.findByNome(nome));
+    }
+
 }

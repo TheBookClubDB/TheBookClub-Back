@@ -9,4 +9,6 @@ public interface AutorService {
     AutorResponse registrar(AutorRequest request);
 
     List<AutorResponse> lista();
+
+    AutorResponse bucarPorNome(String nome);
 } 

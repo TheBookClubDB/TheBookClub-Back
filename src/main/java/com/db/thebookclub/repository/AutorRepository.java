@@ -8,4 +8,5 @@ import com.db.thebookclub.model.Autor;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
     Optional<Autor> findByCpf(String cpf);
-} 
+    Autor findByNome(String nome);
+}
