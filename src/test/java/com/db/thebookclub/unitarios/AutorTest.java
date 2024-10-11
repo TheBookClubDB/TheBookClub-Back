@@ -3,7 +3,6 @@ package com.db.thebookclub.unitarios;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -46,19 +45,20 @@ public class AutorTest {
     @Test
     @DisplayName("Deve permitir registrar um autor")
     void registraAutor() {
-        when(repository.findByCpf(anyString())).thenReturn(Optional.empty());
+        when(repository.findByNome(requestValido.nome())).thenReturn(Optional.empty());
 
         response = service.registrar(requestValido);
 
         verify(repository, times(1)).save(any(Autor.class));
         assertEquals(response.nome(), requestValido.nome());
-        assertEquals(response.cpf(), requestValido.cpf());
+        assertEquals(response.nascimento(), requestValido.nascimento());
+        assertEquals(response.genero(), requestValido.genero());
     }
 
     @Test
     @DisplayName("Não deve permitir registrar um autor por dados invalidos")
     void naoRegistraAutor() {
-        when(repository.findByCpf(anyString())).thenReturn(Optional.of(autor));
+        when(repository.findByNome(requestValido.nome())).thenReturn(Optional.of(autor));
 
         assertThrows(AutorJaCadastradoException.class, () -> {
             service.registrar(requestValido);
