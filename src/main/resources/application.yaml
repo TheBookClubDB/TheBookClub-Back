@@ -5,8 +5,10 @@ spring:
     username: ${POSTGRES_USER}
   jpa:
     hibernate:
-      ddl-auto:  update # or create-drop 
+      ddl-auto:  create-drop # update 
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+
+server.port: 8081

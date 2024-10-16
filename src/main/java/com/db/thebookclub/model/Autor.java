@@ -6,6 +6,8 @@ import com.db.thebookclub.enums.Genero;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,9 +35,7 @@ public class Autor {
     @Column(nullable = false)
     private LocalDate nascimento;
 
-    @Column(nullable = false,unique = true)
-    private String cpf;
-
+    @Enumerated(EnumType.STRING)
     private Genero genero;
 
 }
