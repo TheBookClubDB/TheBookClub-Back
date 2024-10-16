@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registro) {
                 registro.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173", "https://the-book-club.onrender.com") 
+                        .allowedOrigins("http://localhost:5173", "https://the-book-club-5gsc.onrender.com") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");
             }
