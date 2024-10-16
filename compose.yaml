@@ -5,8 +5,7 @@ services:
       '.env'
     ports:
       - '5437:5432'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+
   sonarqube:
     image: sonarqube:community
     depends_on:
@@ -20,8 +19,16 @@ services:
     ports:
       - "9000:9000"
 
+  api:
+    build: .
+    ports:
+      - "8081:8081"
+    env_file:
+      '.env'
+    depends_on:
+      - db
+    
 volumes:
-  postgres_data:
   sonarqube_data:
   sonarqube_extensions:
   sonarqube_logs:
