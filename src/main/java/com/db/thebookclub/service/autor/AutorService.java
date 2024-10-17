@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface AutorService {
     AutorResponse registrar(AutorRequest request);
+    List<AutorResponse> listar(String nome);
 
-    List<AutorResponse> lista();
-
-    AutorResponse bucarPorNome(String nome);
-} 
+    AutorResponse buscarAutorPorId(Long id);
+}

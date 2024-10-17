@@ -1,14 +1,18 @@
 package com.db.thebookclub.unitarios;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import com.db.thebookclub.exception.AutorNaoEncontradoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +36,6 @@ public class AutorTest {
 
     @InjectMocks
     private AutorServiceImpl  service;
-
     private AutorRequest requestValido;
     private AutorResponse response;
     private Autor autor;
@@ -67,4 +70,81 @@ public class AutorTest {
         verify(repository, never()).save(any(Autor.class));
     }
 
+    @Test
+    @DisplayName("Deve retornar lista de autores")
+    void retornaListaDeAutores(){
+        List<Autor> autores = new ArrayList<>();
+        autor= autor.builder()
+                .nome(requestValido.nome())
+                .nascimento(requestValido.nascimento())
+                .genero(requestValido.genero())
+                .build();
+
+        autores.add(autor);
+        when(repository.findAll()).thenReturn(autores);
+
+        List<AutorResponse> autorBuscado = service.listar(null);
+        assertEquals(autorBuscado.size(),1);
+        assertTrue(autorBuscado.get(0).nome().equals(requestValido.nome()));
+        assertTrue(autorBuscado.get(0).genero().toString().equals(requestValido.genero().toString()));
+    }
+
+    @Test
+    @DisplayName("Deve retornar um autor buscado por id")
+    void retornaAutorBuscadoPorId(){
+        autor= autor.builder()
+                .id(1l)
+                .nome(requestValido.nome())
+                .nascimento(requestValido.nascimento())
+                .genero(requestValido.genero())
+                .build();
+        when(repository.findById(1L)).thenReturn(Optional.of(autor));
+
+        AutorResponse resposta = service.buscarAutorPorId(1L);
+
+        assertTrue(resposta !=null);
+        assertEquals(resposta.nome(), autor.getNome());
+        assertEquals(resposta.nascimento(),autor.getNascimento());
+        assertEquals(1L,resposta.id());
+    }
+
+    @Test
+    @DisplayName("Deve retornar um erro de autor buscado pelo ID e não encontrado")
+    void retornaExcessaoDeAutorNaoEncontrado(){
+
+        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class, ()-> {
+           service.buscarAutorPorId(1L); });
+
+        assertEquals("Não foi encontrado nenhum autor com o id: "+1l, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Deve retornar um autor buscado pelo nome")
+    void retornaListaDeAutoresBucadoPeloBome(){
+        autor= autor.builder()
+                .id(1l)
+                .nome(requestValido.nome())
+                .nascimento(requestValido.nascimento())
+                .genero(requestValido.genero())
+                .build();
+        when(repository.findByNome(autor.getNome())).thenReturn(Optional.of(autor));
+
+        Autor resposta = repository.findByNome(autor.getNome()).get();
+
+        assertEquals(autor.getNome(), resposta.getNome());
+        assertEquals(resposta.getNascimento(), autor.getNascimento());
+        assertEquals(resposta.getGenero().toString(), autor.getGenero().toString());
+    }
+
+    @Test
+    @DisplayName("Deve lançar Excessão de autor buscado pelo nome não encontrado")
+    void retornaExcessaoDeAutorBucadoPeloNomeENaoEncontrado(){
+        String nomeBuscado = "nomeNaoCadastrado";
+
+        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class,
+                ()-> service.listar(nomeBuscado));
+
+        assertEquals("Não foi encontrado nenhum autor com o nome: "+nomeBuscado, exception.getMessage());
+
+    }
 }

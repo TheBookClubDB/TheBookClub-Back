@@ -9,6 +9,8 @@ import com.db.thebookclub.dto.autor.AutorResponse;
 import com.db.thebookclub.service.autor.AutorService;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/autor")
 public class AutorController {
@@ -21,8 +23,14 @@ public class AutorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(request));
     }
 
-    @GetMapping("/{nome}")
-    public AutorResponse pesquisar(@PathVariable String nome){
-        return service.bucarPorNome(nome);
+    @GetMapping()
+    @ResponseBody
+    public List<AutorResponse> listar(@RequestParam(required = false) String nome){
+        return service.listar(nome);
+    }
+
+    @GetMapping("/{id}")
+    public AutorResponse buscarPorId(@PathVariable Long id){
+        return service.buscarAutorPorId(id);
     }
 }

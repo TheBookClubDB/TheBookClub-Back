@@ -2,6 +2,8 @@ package com.db.thebookclub.service.autor;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.db.thebookclub.exception.AutorNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.db.thebookclub.dto.autor.AutorRequest;
@@ -34,13 +36,30 @@ public class AutorServiceImpl implements AutorService {
         }
     }
 
-    public List<AutorResponse> lista(){
-        return autorMaper.lista(repository.findAll());
-    }
-
     @Override
-    public AutorResponse bucarPorNome(String nome) {
-        return autorMaper.autorToResponse(repository.findByNome(nome));
+    public List<AutorResponse> listar(String nome) {
+        List<AutorResponse> pessoasBuscada;
+
+        if(nome == null){
+            pessoasBuscada= autorMaper.lista(repository.findAll());
+        }else{
+            pessoasBuscada = buscarAutorPeloNome(nome);
+        }
+
+        return pessoasBuscada;
     }
 
+    public AutorResponse buscarAutorPorId(Long id){
+        Autor autor = repository.findById(id).orElseThrow(
+                ()-> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: "+id));
+        return autorMaper.autorToResponse(autor);
+    }
+
+    private List<AutorResponse> buscarAutorPeloNome(String nome){
+        List<Autor> autoresEncontrados = repository.findByNomeContainingIgnoreCase(nome);
+        if(autoresEncontrados.isEmpty()){
+            throw  new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o nome: "+nome);
+        }
+        return autorMaper.lista(autoresEncontrados);
+    }
 }

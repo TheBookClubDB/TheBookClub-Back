@@ -12,4 +12,10 @@ public class ErrorHandler {
     public ResponseEntity<String> handleErrorAutorJaCadastradoException(AutorJaCadastradoException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(AutorNaoEncontradoException.class)
+    public ResponseEntity<String> handleErrorAutorNaoEncontradoException(AutorNaoEncontradoException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
 }
