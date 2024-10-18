@@ -25,12 +25,12 @@ public class AutorController {
 
     @GetMapping()
     @ResponseBody
-    public List<AutorResponse> listar(@RequestParam(required = false) String nome){
+    public List<AutorResponse> listar(@RequestParam(required = false) String nome) {
         return service.listar(nome);
     }
 
     @GetMapping("/{id}")
-    public AutorResponse buscarPorId(@PathVariable Long id){
+    public AutorResponse buscarPorId(@PathVariable Long id) {
         return service.buscarAutorPorId(id);
     }
 }

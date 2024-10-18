@@ -40,25 +40,25 @@ public class AutorServiceImpl implements AutorService {
     public List<AutorResponse> listar(String nome) {
         List<AutorResponse> pessoasBuscada;
 
-        if(nome == null){
-            pessoasBuscada= autorMaper.lista(repository.findAll());
-        }else{
+        if (nome == null) {
+            pessoasBuscada = autorMaper.lista(repository.findAll());
+        } else {
             pessoasBuscada = buscarAutorPeloNome(nome);
         }
 
         return pessoasBuscada;
     }
 
-    public AutorResponse buscarAutorPorId(Long id){
+    public AutorResponse buscarAutorPorId(Long id) {
         Autor autor = repository.findById(id).orElseThrow(
-                ()-> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: "+id));
+                () -> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: " + id));
         return autorMaper.autorToResponse(autor);
     }
 
-    private List<AutorResponse> buscarAutorPeloNome(String nome){
+    private List<AutorResponse> buscarAutorPeloNome(String nome) {
         List<Autor> autoresEncontrados = repository.findByNomeContainingIgnoreCase(nome);
-        if(autoresEncontrados.isEmpty()){
-            throw  new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o nome: "+nome);
+        if (autoresEncontrados.isEmpty()) {
+            throw  new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o nome: " + nome);
         }
         return autorMaper.lista(autoresEncontrados);
     }
