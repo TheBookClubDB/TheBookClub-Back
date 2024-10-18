@@ -86,7 +86,7 @@ public class AutorTest {
         when(repository.findAll()).thenReturn(autores);
 
         List<AutorResponse> autorBuscado = service.listar(null);
-        assertEquals(autorBuscado.size(),1);
+        assertEquals(autorBuscado.size(), 1);
         assertTrue(autorBuscado.get(0).nome().equals(requestValido.nome()));
         assertTrue(autorBuscado.get(0).genero().toString().equals(requestValido.genero().toString()));
     }
@@ -95,7 +95,7 @@ public class AutorTest {
     @DisplayName("Deve retornar um autor buscado por id")
     void retornaAutorBuscadoPorId() {
         autor = autor.builder()
-                .id(1l)
+                .id(1L)
                 .nome(requestValido.nome())
                 .nascimento(requestValido.nascimento())
                 .genero(requestValido.genero())
@@ -104,27 +104,27 @@ public class AutorTest {
 
         AutorResponse resposta = service.buscarAutorPorId(1L);
 
-        assertTrue(resposta !=null);
+        assertTrue(resposta != null);
         assertEquals(resposta.nome(), autor.getNome());
-        assertEquals(resposta.nascimento(),autor.getNascimento());
-        assertEquals(1L,resposta.id());
+        assertEquals(resposta.nascimento(), autor.getNascimento());
+        assertEquals(1L, resposta.id());
     }
 
     @Test
     @DisplayName("Deve retornar um erro de autor buscado pelo ID e não encontrado")
     void retornaExcessaoDeAutorNaoEncontrado() {
 
-        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class, () -> {
-           service.buscarAutorPorId(1L); });
+        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class, () ->
+           service.buscarAutorPorId(1L));
 
-        assertEquals("Não foi encontrado nenhum autor com o id: " + 1l, exception.getMessage());
+        assertEquals("Não foi encontrado nenhum autor com o id: " + 1L, exception.getMessage());
     }
 
     @Test
     @DisplayName("Deve retornar um autor buscado pelo nome")
     void retornaListaDeAutoresBucadoPeloBome() {
         autor = autor.builder()
-                .id(1l)
+                .id(1L)
                 .nome(requestValido.nome())
                 .nascimento(requestValido.nascimento())
                 .genero(requestValido.genero())
@@ -140,7 +140,7 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve lançar Excessão de autor buscado pelo nome não encontrado")
-    void retornaExcessaoDeAutorBucadoPeloNomeENaoEncontrado() {
+    void retornaExcessaoDeAutorBucadoPeloNomeNaoEncontrado() {
         String nomeBuscado = "nomeNaoCadastrado";
 
         AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class,
