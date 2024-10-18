@@ -32,12 +32,12 @@ import com.db.thebookclub.service.autor.AutorServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class AutorTest {
-    
+
     @Mock
     private AutorRepository repository;
 
     @InjectMocks
-    private AutorServiceImpl  service;
+    private AutorServiceImpl service;
     private AutorRequest requestValido;
     private AutorResponse response;
     private Autor autor;
@@ -115,7 +115,7 @@ public class AutorTest {
     void retornaExcessaoDeAutorNaoEncontrado() {
 
         AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class, () ->
-           service.buscarAutorPorId(1L));
+                service.buscarAutorPorId(1L));
 
         assertEquals("Não foi encontrado nenhum autor com o id: " + 1L, exception.getMessage());
     }
