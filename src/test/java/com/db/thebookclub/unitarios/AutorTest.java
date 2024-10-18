@@ -1,6 +1,8 @@
 package com.db.thebookclub.unitarios;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -72,9 +74,9 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve retornar lista de autores")
-    void retornaListaDeAutores(){
+    void retornaListaDeAutores() {
         List<Autor> autores = new ArrayList<>();
-        autor= autor.builder()
+        autor = autor.builder()
                 .nome(requestValido.nome())
                 .nascimento(requestValido.nascimento())
                 .genero(requestValido.genero())
@@ -91,8 +93,8 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve retornar um autor buscado por id")
-    void retornaAutorBuscadoPorId(){
-        autor= autor.builder()
+    void retornaAutorBuscadoPorId() {
+        autor = autor.builder()
                 .id(1l)
                 .nome(requestValido.nome())
                 .nascimento(requestValido.nascimento())
@@ -110,18 +112,18 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve retornar um erro de autor buscado pelo ID e não encontrado")
-    void retornaExcessaoDeAutorNaoEncontrado(){
+    void retornaExcessaoDeAutorNaoEncontrado() {
 
-        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class, ()-> {
+        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class, () -> {
            service.buscarAutorPorId(1L); });
 
-        assertEquals("Não foi encontrado nenhum autor com o id: "+1l, exception.getMessage());
+        assertEquals("Não foi encontrado nenhum autor com o id: " + 1l, exception.getMessage());
     }
 
     @Test
     @DisplayName("Deve retornar um autor buscado pelo nome")
-    void retornaListaDeAutoresBucadoPeloBome(){
-        autor= autor.builder()
+    void retornaListaDeAutoresBucadoPeloBome() {
+        autor = autor.builder()
                 .id(1l)
                 .nome(requestValido.nome())
                 .nascimento(requestValido.nascimento())
@@ -138,13 +140,13 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve lançar Excessão de autor buscado pelo nome não encontrado")
-    void retornaExcessaoDeAutorBucadoPeloNomeENaoEncontrado(){
+    void retornaExcessaoDeAutorBucadoPeloNomeENaoEncontrado() {
         String nomeBuscado = "nomeNaoCadastrado";
 
         AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class,
-                ()-> service.listar(nomeBuscado));
+                () -> service.listar(nomeBuscado));
 
-        assertEquals("Não foi encontrado nenhum autor com o nome: "+nomeBuscado, exception.getMessage());
+        assertEquals("Não foi encontrado nenhum autor com o nome: " + nomeBuscado, exception.getMessage());
 
     }
 }
