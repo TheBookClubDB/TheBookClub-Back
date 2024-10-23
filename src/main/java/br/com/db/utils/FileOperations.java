@@ -9,7 +9,7 @@ public class FileOperations {
             + File.separator +
             "src"
             + File.separator +
-            "test"
+            "main"
             + File.separator+
             "resources"
             + File.separator;
