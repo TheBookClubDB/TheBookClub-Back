@@ -2,7 +2,7 @@ package br.com.db.endpoints;
 
 import br.com.db.utils.PropertiesData;
 
-public class EndpointConfig extends ServiceUrlPaths {
+public class AutorEndpointConfig extends ServiceUrlPaths {
 
     protected static String baseUri() {
         return BASE_URI = PropertiesData.getPropertiesData("url", "BASE_URI");
