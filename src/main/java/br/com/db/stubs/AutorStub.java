@@ -6,7 +6,7 @@ public class AutorStub {
     private static final AutorDto autor = new AutorDto();
 
     public static AutorDto getAutorStub() {
-        autor.setNome("Teste 14");
+        autor.setNome("Teste");
         autor.setNascimento("1990-07-17");
         autor.setGenero("MASCULINO");
         return autor;

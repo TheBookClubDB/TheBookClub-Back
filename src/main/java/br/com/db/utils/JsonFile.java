@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class JsonFileUtil {
+public class JsonFile {
 
     private static final String BASE_PATH = "src/test/resources/json/";
 
