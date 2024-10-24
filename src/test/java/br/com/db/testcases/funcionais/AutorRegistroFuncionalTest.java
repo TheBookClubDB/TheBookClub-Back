@@ -17,13 +17,13 @@ public class AutorRegistroFuncionalTest extends AutorBaseTest {
     @Feature("Teste o cadastro um autor duplicado.")
     @Description("O metodo de cadastro de um autor duplicado deve retornar 400, com um arquivo JSON.")
     @Test
-    public void registroDeUmAutorComSucesso400() throws IOException {
+    public void registroDeUmAutorDuplicado400() throws IOException {
         given()
                     .spec(autorRegistroRequest)
                     .body(getFileContent("autor.json"))
                 .when()
                     .post()
-                .then().log().all()
+                .then()
                     .spec(responseSpecStatusBadRequest);
     }
 }

@@ -1,1 +1,0 @@
-{"uuid":"0d6c1a68-fe28-4559-97eb-7bf8682d7acd","name":"br.com.db.testcases.funcionais.AutorRegistroTest","children":["c4a703b3-78e6-4a78-8e32-91b90d48cfaf"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1729793694505,"stop":1729793694927}],"afters":[],"start":1729793694467,"stop":1729793695610}
