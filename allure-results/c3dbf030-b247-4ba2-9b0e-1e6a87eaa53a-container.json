@@ -1,0 +1,1 @@
+{"uuid":"c3dbf030-b247-4ba2-9b0e-1e6a87eaa53a","name":"br.com.db.testcases.contratos.AutorRegistroTest","children":["b0852a5c-61fe-4959-a46e-25b200ffa5b0"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1729792695217,"stop":1729792695641}],"afters":[],"start":1729792695183,"stop":1729792696367}

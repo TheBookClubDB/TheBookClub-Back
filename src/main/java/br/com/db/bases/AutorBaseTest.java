@@ -10,21 +10,15 @@ import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeClass;
 
 public class AutorBaseTest extends AutorEndpointConfig {
-    public static RequestSpecification baseUrl;
     public static RequestSpecification autorRegistroRequest;
-    public static ResponseSpecification responseSpecStatus;
+    public static ResponseSpecification responseSpecStatusCreated;
+    public static ResponseSpecification responseSpecStatusBadRequest;
 
     @BeforeClass
     public void setUp() {
-        baseUrl();
         autorRegistroRequestSpec();
         responseSpecStatusCreated();
-    }
-
-    private void baseUrl() {
-        baseUrl = new RequestSpecBuilder()
-                .setBaseUri(baseUri())
-                .build();
+        responseSpecStatusBadRequest();
     }
 
     private void autorRegistroRequestSpec() {
@@ -36,8 +30,14 @@ public class AutorBaseTest extends AutorEndpointConfig {
     }
 
     private void responseSpecStatusCreated() {
-        responseSpecStatus = new ResponseSpecBuilder()
+        responseSpecStatusCreated = new ResponseSpecBuilder()
                 .expectStatusCode(HttpStatus.SC_CREATED)
+                .build();
+    }
+
+    private void responseSpecStatusBadRequest() {
+        responseSpecStatusBadRequest = new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .build();
     }
 }
