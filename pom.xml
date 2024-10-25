@@ -50,7 +50,6 @@
             <artifactId>hamcrest</artifactId>
             <version>3.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>

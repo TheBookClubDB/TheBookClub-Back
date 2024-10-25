@@ -27,6 +27,8 @@
 
 :pushpin: [Hamcrest](https://mvnrepository.com/artifact/org.hamcrest/hamcrest/3.0)
 
+:pushpin: [Java Faker](https://mvnrepository.com/artifact/com.github.javafaker/javafaker/1.0.2)
+
 ---
 ###  Pré-requisitos:
 Antes de começar, é necessária a instalar MAVEN em sua máquina as seguintes ferramentas:
