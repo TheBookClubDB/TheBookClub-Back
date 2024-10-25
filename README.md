@@ -69,7 +69,7 @@ Agora é Allure, como fazer a instalar e segue passo a passo baixo:
 
 Para baixar o projeto, abrir o comando ou dentro IDE:
 ```bash
-git clone https://github.com/TheBookClubDB/TheBookClub-Back/tree/test-api
+git clone --branch test-api --single-branch https://github.com/TheBookClubDB/TheBookClub-Back.git
 ```
 #### Como executar?
 Para executar na sua máquina local, o comando ou através de sua IDE:
