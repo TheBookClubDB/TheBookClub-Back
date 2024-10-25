@@ -89,10 +89,6 @@ mvn test
 http://localhost:8081/autor/registro - LocalHost
 https://the-book-club-back.onrender.com/autor/registro - Render 
 ```
-- **PATCH:**
-```json 
-GET, POST, PUT, and DELETE 
-```
 
 ### Headers:
 
