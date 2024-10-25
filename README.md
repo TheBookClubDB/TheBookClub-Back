@@ -81,7 +81,7 @@ mvn test
 ```
 ---
 #### Screenshot Allure Report:
-
+![](src/main/resources/img/allure-results/CapturaDeTelaDeAllure.png)
 ---
 ### Postman  :rocket:
 
