@@ -5,15 +5,30 @@ plugins {
 group = 'br.com.db'
 version = '1.0-SNAPSHOT'
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
 repositories {
     mavenCentral()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.testng:testng:7.7.0'
+    implementation 'io.rest-assured:rest-assured:5.3.0'
+    implementation 'io.rest-assured:json-schema-validator:5.3.0'
+    implementation 'io.qameta.allure:allure-testng:2.29.0'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 }
 
 test {
-    useJUnitPlatform()
+    useTestNG()
 }
