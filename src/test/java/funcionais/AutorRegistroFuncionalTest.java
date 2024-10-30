@@ -1,0 +1,29 @@
+package funcionais;
+
+import br.com.db.bases.AutorBaseTest;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+
+import static br.com.db.utils.JsonFile.getFileContent;
+import static io.restassured.RestAssured.given;
+
+public class AutorRegistroFuncionalTest extends AutorBaseTest {
+
+    @Epic("Teste de Funcional")
+    @Feature("Teste o cadastro um autor duplicado.")
+    @Description("O metodo de cadastro de um autor duplicado deve retornar 400, com um arquivo JSON.")
+    @Test
+    public void registroDeUmAutorDuplicado400() throws IOException {
+        given()
+                    .spec(autorRegistroRequest)
+                    .body(getFileContent("autor.json"))
+                .when()
+                    .post()
+                .then()
+                    .spec(responseSpecStatusBadRequest);
+    }
+}
