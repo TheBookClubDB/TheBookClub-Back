@@ -9,8 +9,7 @@ public class AutorFixture {
     public static AutorRequest autorValido() {
         return new AutorRequest(
             "João Silva",                        
-            LocalDate.of(1990, 5, 10),           
-            "513.099.230-00",                   
+            LocalDate.of(1990, 5, 10),                             
             Genero.MASCULINO                    
         );
     }
@@ -18,8 +17,7 @@ public class AutorFixture {
     public static AutorRequest autorInvalido() {
         return new AutorRequest(
             "",                                  
-            null,                                
-            "123.456.789-99",                    
+            null,                                                 
             null                                
         );
     }

@@ -8,6 +8,5 @@ public record AutorResponse(
     Long id,
     String nome,
     LocalDate nascimento,
-    String cpf,
     Genero genero
 ) {}

@@ -17,6 +17,9 @@ import com.db.thebookclub.fixture.SqlProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -48,7 +51,8 @@ public class AutorTest {
                 .content(json))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("João Silva"))
-                .andExpect(jsonPath("$.cpf").value("513.099.230-00"));
+                .andExpect(jsonPath("$.nascimento").value(LocalDate.of(1990, 5, 10).toString()))
+                .andExpect(jsonPath("$.genero").value("MASCULINO"));
     }
 
     @Test
@@ -64,7 +68,7 @@ public class AutorTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/autor/registro")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
-                .andExpect(content().string(containsString("Já existe um autor cadastrado com esse CPF")));
+                .andExpect(content().string(containsString("Já existe um autor cadastrado com esse nome")));
     }
 
 }
