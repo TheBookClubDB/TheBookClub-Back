@@ -1,5 +1,6 @@
 package com.db.thebookclub.service.autor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,15 +39,15 @@ public class AutorServiceImpl implements AutorService {
 
     @Override
     public List<AutorResponse> listar(String nome) {
-        List<AutorResponse> pessoasBuscada;
+        List<AutorResponse> retorno = new ArrayList<>();
 
         if (nome == null) {
-            pessoasBuscada = autorMaper.lista(repository.findAll());
+            retorno = autorMaper.lista(repository.findAll());
         } else {
-            pessoasBuscada = buscarAutorPeloNome(nome);
+            retorno = buscarAutorPeloNome(nome);
         }
 
-        return pessoasBuscada;
+        return retorno;
     }
 
     public AutorResponse buscarAutorPorId(Long id) {

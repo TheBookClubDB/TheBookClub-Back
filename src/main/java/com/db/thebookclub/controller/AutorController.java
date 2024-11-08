@@ -1,5 +1,6 @@
 package com.db.thebookclub.controller;
 
+import com.db.thebookclub.model.Autor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,15 @@ public class AutorController {
 
     @GetMapping()
     @ResponseBody
-    public List<AutorResponse> listar(@RequestParam(required = false) String nome) {
-        return service.listar(nome);
+    public List<AutorResponse> buscaAutor(@RequestParam(required = false) String nome) {
+            return service.listar(nome);
+
     }
+
 
     @GetMapping("/{id}")
     public AutorResponse buscarPorId(@PathVariable Long id) {
         return service.buscarAutorPorId(id);
     }
+
 }

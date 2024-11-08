@@ -13,7 +13,7 @@ public interface AutorRepository extends JpaRepository<Autor, Long> {
     @Query(value = "SELECT a FROM Autor a WHERE a.nome ILIKE :nome")
     Optional<Autor> findByNome(@Param("nome") String nome);
 
-    Optional<Autor> findByCpf(String cpf);
+//    Optional<Autor> findByCpf(String cpf);
 
     List<Autor> findByNomeContainingIgnoreCase(String nome);
 }
