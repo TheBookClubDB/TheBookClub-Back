@@ -175,7 +175,7 @@ public class AutorTest {
         AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class,
                 () -> service.buscarAutorPorId(1L));
 
-        assertEquals( "Não foi encontrado nenhum autor com o id: "+ 1, exception.getMessage());
+        assertEquals("Não foi encontrado nenhum autor com o id: " + 1, exception.getMessage());
 
     }
 }
