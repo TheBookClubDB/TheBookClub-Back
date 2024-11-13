@@ -28,15 +28,4 @@ public class AutorController {
     public ResponseEntity<AutorResponse> registrar(@RequestBody @Valid AutorRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(request));
     }
-
-    @GetMapping()
-    @ResponseBody
-    public List<AutorResponse> buscaAutor(@RequestParam(required = false) String nome) {
-        return service.listar(nome);
-    }
-
-    @GetMapping("/{id}")
-    public AutorResponse buscarPorId(@PathVariable Long id) {
-        return service.buscarAutorPorId(id);
-    }
 }
