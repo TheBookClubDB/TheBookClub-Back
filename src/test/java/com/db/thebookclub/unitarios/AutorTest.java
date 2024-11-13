@@ -149,4 +149,33 @@ public class AutorTest {
         assertEquals("Não foi encontrado nenhum autor com o nome: " + nomeBuscado, exception.getMessage());
 
     }
+
+    @Test
+    @DisplayName("Deve retornar um autor buscado pelo ID")
+    void retornaListaDeAutoresBucadoPeloID() {
+        autor = autor.builder()
+                .id(1L)
+                .nome(requestValido.nome())
+                .nascimento(requestValido.nascimento())
+                .genero(requestValido.genero())
+                .build();
+        when(repository.findById(autor.getId())).thenReturn(Optional.of(autor));
+
+        Autor resposta = repository.findById(autor.getId()).get();
+
+        assertEquals(autor.getNome(), resposta.getNome());
+        assertEquals(resposta.getNascimento(), autor.getNascimento());
+        assertEquals(resposta.getGenero().toString(), autor.getGenero().toString());
+    }
+
+    @Test
+    @DisplayName("Deve lançar Excessão de autor buscado pelo nome não encontrado")
+    void retornaExcessaoDeAutorBucadoPeloIdNaoEncontrado() {
+
+        AutorNaoEncontradoException exception = assertThrows(AutorNaoEncontradoException.class,
+                () -> service.buscarAutorPorId(1L));
+
+        assertEquals( "Não foi encontrado nenhum autor com o id: "+ 1, exception.getMessage());
+
+    }
 }
