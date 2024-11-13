@@ -122,7 +122,7 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve retornar um autor buscado pelo nome")
-    void retornaListaDeAutoresBucadoPeloBome() {
+    void retornaListaDeAutoresBucadoPeloNome() {
         autor = autor.builder()
                 .id(1L)
                 .nome(requestValido.nome())
@@ -152,7 +152,7 @@ public class AutorTest {
 
     @Test
     @DisplayName("Deve retornar um autor buscado pelo ID")
-    void retornaListaDeAutoresBucadoPeloID() {
+    void retornaListaDeAutoresBucadoPeloId() {
         autor = autor.builder()
                 .id(1L)
                 .nome(requestValido.nome())
