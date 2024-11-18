@@ -7,6 +7,9 @@ import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.dto.autor.AutorResponse;
 import com.db.thebookclub.model.Autor;
 
+import java.util.List;
+import java.util.Optional;
+
 @Mapper(componentModel = "spring")
 public interface AutorMapper {
     AutorMapper INSTANCE = Mappers.getMapper(AutorMapper.class);
@@ -15,4 +18,6 @@ public interface AutorMapper {
     Autor requestToAutor(AutorRequest autorRequest);
 
     AutorResponse autorToResponse(Autor autor);
+
+    List<AutorResponse> lista(List<Autor> autores);
 }
