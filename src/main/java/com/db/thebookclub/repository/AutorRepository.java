@@ -12,7 +12,9 @@ import com.db.thebookclub.model.Autor;
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 
     @Query(value = "SELECT a FROM Autor a WHERE a.nome ILIKE :nome")
-    Optional<Autor> findByNome(@Param("nome") String nome);
+    Optional<Autor> findByName(@Param("nome") String nome);
 
     List<Autor> findByNomeContainingIgnoreCase(String nome);
+    
+    List<Autor> listAutores();
 }

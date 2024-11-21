@@ -23,9 +23,30 @@ public class AutorController {
 
     @Autowired
     AutorService service;
+    AutorServiceClass autorService;
 
     @PostMapping("/registro")
     public ResponseEntity<AutorResponse> registrar(@RequestBody @Valid AutorRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(request));
     }
-}
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<AutorResponse>> listar() {
+        return autorService.listAutor()
+    }
+    
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<AutorResponse> buscar(@PathVariable Long id) {
+        if (id == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
+        }
+        return autorService.buscar(id);
+    }
+
+    @GetMapping("/buscar/{nome}")
+    public ResponseEntity<AutorResponse> buscarPorNome(@RequestParam nome) {
+        if (String.isNullOrEmpty(nome)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
+        }
+        return autorService.findByAutor(nome);
+    }

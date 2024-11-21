@@ -11,4 +11,6 @@ public interface AutorService {
     List<AutorResponse> listar(String nome);
 
     AutorResponse buscarAutorPorId(Long id);
+
+    AutorResponse buscarPorNome(String nome);
 }
