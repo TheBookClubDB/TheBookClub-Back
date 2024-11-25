@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.db.thebookclub.dto.autor.AutorAtualizado;
 import com.db.thebookclub.exception.AutorNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,23 +45,34 @@ public class AutorServiceImpl implements AutorService {
         if (nome == null) {
             retorno = autorMaper.lista(repository.findAll());
         } else {
-            retorno = buscarAutorPeloNome(nome);
+            retorno = autorMaper.lista(buscar(nome));
         }
 
         return retorno;
     }
 
-    public AutorResponse buscarAutorPorId(Long id) {
-        Autor autor = repository.findById(id).orElseThrow(
-                () -> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: " + id));
-        return autorMaper.autorToResponse(autor);
+    @Override
+    public AutorResponse atualizarAutorPorId(Long id, AutorAtualizado dadosAtualizado) {
+       Autor autor = buscar(id);
+       autorMaper.atualizarAutor(autor, dadosAtualizado);
+       repository.save(autor);
+       return autorMaper.autorToResponse(autor);
     }
 
-    private List<AutorResponse> buscarAutorPeloNome(String nome) {
+    public AutorResponse buscarAutorPorId(Long id) {
+        return autorMaper.autorToResponse(buscar(id));
+    }
+
+    private  Autor buscar(Long id){
+        return repository.findById(id).orElseThrow(
+                () -> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: " + id));
+    }
+
+    private List<Autor> buscar(String nome) {
         List<Autor> autoresEncontrados = repository.findByNomeContainingIgnoreCase(nome);
         if (autoresEncontrados.isEmpty()) {
             throw  new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o nome: " + nome);
         }
-        return autorMaper.lista(autoresEncontrados);
+        return autoresEncontrados;
     }
 }

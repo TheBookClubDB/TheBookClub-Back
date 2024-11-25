@@ -1,14 +1,13 @@
 package com.db.thebookclub.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import com.db.thebookclub.dto.autor.AutorAtualizado;
 import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.dto.autor.AutorResponse;
 import com.db.thebookclub.model.Autor;
+import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface AutorMapper {
@@ -20,4 +19,8 @@ public interface AutorMapper {
     AutorResponse autorToResponse(Autor autor);
 
     List<AutorResponse> lista(List<Autor> autores);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void atualizarAutor(@MappingTarget Autor autor, AutorAtualizado atualizado);
 }

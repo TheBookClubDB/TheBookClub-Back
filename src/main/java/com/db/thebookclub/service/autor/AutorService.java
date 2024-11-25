@@ -1,5 +1,6 @@
 package com.db.thebookclub.service.autor;
 
+import com.db.thebookclub.dto.autor.AutorAtualizado;
 import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.dto.autor.AutorResponse;
 
@@ -11,4 +12,5 @@ public interface AutorService {
     List<AutorResponse> listar(String nome);
 
     AutorResponse buscarAutorPorId(Long id);
+    AutorResponse atualizarAutorPorId(Long id, AutorAtualizado atualizado);
 }
