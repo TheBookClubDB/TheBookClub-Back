@@ -12,5 +12,6 @@ public interface AutorService {
     List<AutorResponse> listar(String nome);
 
     AutorResponse buscarAutorPorId(Long id);
+
     AutorResponse atualizarAutorPorId(Long id, AutorAtualizado atualizado);
 }

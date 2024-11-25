@@ -4,7 +4,12 @@ import com.db.thebookclub.dto.autor.AutorAtualizado;
 import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.dto.autor.AutorResponse;
 import com.db.thebookclub.model.Autor;
-import org.mapstruct.*;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

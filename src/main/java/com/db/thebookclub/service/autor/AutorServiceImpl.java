@@ -1,19 +1,19 @@
 package com.db.thebookclub.service.autor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import com.db.thebookclub.dto.autor.AutorAtualizado;
-import com.db.thebookclub.exception.AutorNaoEncontradoException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.dto.autor.AutorResponse;
 import com.db.thebookclub.exception.AutorJaCadastradoException;
+import com.db.thebookclub.exception.AutorNaoEncontradoException;
 import com.db.thebookclub.mapper.AutorMapper;
 import com.db.thebookclub.model.Autor;
 import com.db.thebookclub.repository.AutorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AutorServiceImpl implements AutorService {
@@ -63,7 +63,7 @@ public class AutorServiceImpl implements AutorService {
         return autorMaper.autorToResponse(buscar(id));
     }
 
-    private  Autor buscar(Long id){
+    private  Autor buscar(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: " + id));
     }
