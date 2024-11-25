@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 public class AutorServiceImpl implements AutorService {
-    
+
     @Autowired
     AutorRepository repository;
 
@@ -53,17 +53,17 @@ public class AutorServiceImpl implements AutorService {
 
     @Override
     public AutorResponse atualizarAutorPorId(Long id, AutorAtualizado dadosAtualizado) {
-       Autor autor = buscar(id);
-       autorMaper.atualizarAutor(autor, dadosAtualizado);
-       repository.save(autor);
-       return autorMaper.autorToResponse(autor);
+        Autor autor = buscar(id);
+        autorMaper.atualizarAutor(autor, dadosAtualizado);
+        repository.save(autor);
+        return autorMaper.autorToResponse(autor);
     }
 
     public AutorResponse buscarAutorPorId(Long id) {
         return autorMaper.autorToResponse(buscar(id));
     }
 
-    private  Autor buscar(Long id) {
+    private Autor buscar(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o id: " + id));
     }
@@ -71,7 +71,7 @@ public class AutorServiceImpl implements AutorService {
     private List<Autor> buscar(String nome) {
         List<Autor> autoresEncontrados = repository.findByNomeContainingIgnoreCase(nome);
         if (autoresEncontrados.isEmpty()) {
-            throw  new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o nome: " + nome);
+            throw new AutorNaoEncontradoException("Não foi encontrado nenhum autor com o nome: " + nome);
         }
         return autoresEncontrados;
     }
