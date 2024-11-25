@@ -1,25 +1,31 @@
 package com.db.thebookclub.unitarios;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.db.thebookclub.dto.autor.AutorAtualizado;
+import com.db.thebookclub.enums.Genero;
 import com.db.thebookclub.exception.AutorNaoEncontradoException;
+import com.db.thebookclub.mapper.AutorMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.db.thebookclub.dto.autor.AutorRequest;
 import com.db.thebookclub.dto.autor.AutorResponse;
@@ -35,11 +41,17 @@ public class AutorTest {
     @Mock
     private AutorRepository repository;
 
+    @Mock
+    private AutorMapper maper;
+
     @InjectMocks
     private AutorServiceImpl service;
     private AutorRequest requestValido;
     private AutorResponse response;
     private Autor autor;
+
+    @Captor
+    private ArgumentCaptor<Autor> autorCaptor;
 
     @BeforeEach
     void setup() {
@@ -177,5 +189,28 @@ public class AutorTest {
 
         assertEquals("Não foi encontrado nenhum autor com o id: " + 1, exception.getMessage());
 
+    }
+
+    @Test
+    @DisplayName("Deve atualizar o autor")
+    void deveAtualizarOAutor() {
+        autor = autor.builder()
+                .id(1L)
+                .nome(requestValido.nome())
+                .nascimento(requestValido.nascimento())
+                .genero(requestValido.genero())
+                .build();
+        AutorAtualizado atualizacao = new AutorAtualizado("novoNome",  LocalDate.of(2024, 3, 11), Genero.FEMININO);
+        BDDMockito.given(repository.findById(1L)).willReturn(Optional.ofNullable(autor));
+
+        service.atualizarAutorPorId(1L, atualizacao);
+        maper.atualizarAutor(autor,atualizacao);
+        BDDMockito.then(maper).should().atualizarAutor(autor,atualizacao);
+        BDDMockito.then(repository).should().save(autorCaptor.capture());
+        Autor autorAtualizado = autorCaptor.getValue();
+
+        Assertions.assertEquals("novoNome",autorAtualizado.getNome());
+        Assertions.assertEquals("2024-03-11",autorAtualizado.getNascimento().toString());
+        Assertions.assertEquals("FEMININO",autorAtualizado.getGenero().toString());
     }
 }
