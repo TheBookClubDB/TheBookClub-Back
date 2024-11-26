@@ -32,7 +32,7 @@ public class AutorController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<AutorResponse>> listar() {
-        return autorService.listAutor()
+        return autorService.listAutor();
     }
     
     @GetMapping("/buscar/{id}")
@@ -44,9 +44,10 @@ public class AutorController {
     }
 
     @GetMapping("/buscar/{nome}")
-    public ResponseEntity<AutorResponse> buscarPorNome(@RequestParam nome) {
+    public ResponseEntity<AutorResponse> buscarPorNome(@RequestParam String nome) {
         if (String.isNullOrEmpty(nome)){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
         }
         return autorService.findByAutor(nome);
     }
+}
